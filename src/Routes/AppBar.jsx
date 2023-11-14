@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
+
 
 const NavBar = () => {
 
@@ -7,12 +8,12 @@ const NavBar = () => {
 
   return (
     <>
-      <div className='tw-z-10 tw-fixed tw-top-0 tw-right-0 tw-left-0'>
+      <div className='tw-z-20 tw-fixed tw-top-0 tw-right-0 tw-left-0'>
       <nav className="tw-flex tw-justify-between tw-bg-gray-50 tw-max-h-20 tw-border-b-2 
-      tw-border-primary-border tw-bg-primary-bg tw-px-12">
+      tw-border-gray-300 tw-bg-primary-bg tw-px-12">
 
      
-      <div className='tw-flex tw-gap-0  tw-font-bold tw-text-2xl sm:tw-text-3xl tw-text-black tw-p-2 tw-cursor-pointer'
+      <div className='tw-flex tw-gap-0  tw-font-bold tw-text-2xl sm:tw-text-3xl tw-text-black tw-py-2 tw-cursor-pointer'
       style={{alignItems: "center"}} onClick={()=> navigate("/")}>
         REDUX_TOOLKIT
         <svg width="25" height="24" viewBox="0 0 23 21" className="tw-my-2" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,11 +29,16 @@ const NavBar = () => {
       </div>
     
 
-        <ul className='tw-flex tw-flex-end tw-gap-4 '>
+        <ul className='tw-flex tw-flex-end tw-gap-10'>
           <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("/")}> Home </li>
-          <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("/adddata")}> Add-Data </li>
+          <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("/company")}> Company List</li>
+          <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("employee")}> Employee List </li>
+
         </ul>
       </nav>
+      </div>
+      <div className='tw-pt-20 tw-min-h-screen tw-w-auto'>
+        <Outlet />
       </div>
     </>
   )

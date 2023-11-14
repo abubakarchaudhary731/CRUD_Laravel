@@ -32,28 +32,28 @@ const LoginSlice = createSlice({
   initialState,
   reducers: {
     addToken: (state, action) => {
-      state.token = localStorage.getItem("token");
+      state.token = localStorage.getItem('token');
     },
     addUser: (state, action) => {
-      state.user = localStorage.getItem("user");
+      state.user = localStorage.getItem('user');
     },
   },
-
-  extraReducers: {
-    [loginUser.pending]: (state) => {
-      state.loading = true;
-    },
-    [loginUser.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.token = action.payload.token;
-      state.user = action.payload.user;
-      localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
-    },
-    [loginUser.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.token = action.payload.token;
+        state.user = action.payload.user;
+        localStorage.setItem('token', action.payload.token);
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      });
   },
 });
 

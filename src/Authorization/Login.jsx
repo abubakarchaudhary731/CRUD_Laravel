@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaFacebookF, FaGoogle, FaTwitter } from "react-icons/fa";
 import TextField from '@mui/material/TextField';
 import { loginUser } from "../Redux/Auth/LoginSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import './Style.css';
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../Redux/Auth/Register";
@@ -14,9 +14,10 @@ const Login = () => {
     password: "",
   })
   const [isSignup, setIsSignup] = useState(false);
-  const [error, setError] = useState(""); 
+  const [eror, setError] = useState(""); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {error} = useSelector((state) => state.Register);
 
   const toggleForm = () => {
     setIsSignup(!isSignup);
@@ -110,7 +111,7 @@ const Login = () => {
             id="standard-basic" label="Email" variant="standard" name="email" />
           <TextField  value={password} onChange={(e) => setPassword(e.target.value)}
             id="standard-basic" label="Password" variant="standard" name="password" />
-            <small className="tw-text-red-600"> {error} </small>
+            <small className="tw-text-red-600"> {eror} </small>
           <a href="#">Forgot Your Password</a>
           <button className="tw-p-2" onClick={handleLogin}>Sign In</button>
           </div>

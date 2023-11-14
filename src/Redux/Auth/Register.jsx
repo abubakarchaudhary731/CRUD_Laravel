@@ -23,7 +23,7 @@ export const registerUser = createAsyncThunk("register", async (data, { rejectWi
     const result = await response.json();
     return result;
   } catch (error) {
-    return rejectWithValue("Please Change Email");
+    return rejectWithValue(error);
   }
 });
 
@@ -37,13 +37,16 @@ const RegisterSlice = createSlice({
         state.loading = true;
         state.error = null; 
       })
+      
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.data.push(action.payload);
+        state.error = JSON.stringify(action.payload.message)
       })
+
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = JSON.stringify(action.payload); 
+        state.error = JSON.stringify(action.payload, "Change Email"); 
       });
   },
 });

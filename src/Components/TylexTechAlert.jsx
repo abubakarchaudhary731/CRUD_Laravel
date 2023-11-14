@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -11,7 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({open, handleClose, onConfirm}) {
+export default function TylexTechAlert({title, children, open, handleClose, onConfirm}) {
  
   return (
     <>
@@ -22,15 +22,15 @@ export default function AlertDialogSlide({open, handleClose, onConfirm}) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Confirm Deletion"}</DialogTitle>
+        <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Are you sure you want to delete this data.
+            {children}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose}>Agree</Button>
+          <Button onClick={() => onConfirm(handleClose())}>Agree</Button>
         </DialogActions>
       </Dialog>
     </>
