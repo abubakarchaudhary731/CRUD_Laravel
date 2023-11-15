@@ -23,7 +23,7 @@ class StoreCompanyRequest extends FormRequest
     {
         return [
             "name" => ['required'],
-            "email" => ['nullable', 'email'],
+            "email" => ['required', 'email'],
             "logo" => ['nullable', 'file', 'dimensions:max_width=100,max_height=100'],
             "website" => ['nullable', 'url']
         ];

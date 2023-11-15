@@ -14,6 +14,11 @@ class Company extends Model
 
     public function employees(): HasMany
     {
-        return $this->hasMany(Employee::class);
+        return $this->hasMany(Employee::class, 'company');
+    }
+
+    public static function deleteMultiple(array $ids)
+    {
+    self::whereIn('id', $ids)->delete();
     }
 }

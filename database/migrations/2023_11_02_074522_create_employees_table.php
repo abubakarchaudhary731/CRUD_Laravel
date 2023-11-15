@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->unsignedBigInteger('company')->default(0)->nullable(); 
-            $table->foreign('company')->references('id')->on('companies'); 
-            $table->string('email')->nullable();
+            $table->unsignedBigInteger('company')->default(0); 
+            $table->foreign('company')->references('id')->on('companies')->onDelete('cascade'); 
+            $table->string('email');
             $table->string('phone')->nullable();
             $table->timestamps();
         });

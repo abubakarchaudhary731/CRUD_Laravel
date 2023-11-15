@@ -13,6 +13,11 @@ class Employee extends Model
 
     public function campany(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'company');
+    }
+
+    public static function deleteMultiple(array $ids)
+    {
+    self::whereIn('id', $ids)->delete();
     }
 }

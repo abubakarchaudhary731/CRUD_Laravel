@@ -22,13 +22,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::controller(AuthController::class)->group(function() {
-    Route::post('login' , 'login');
+    Route::post('login' , 'login')->named('login');
+    Route::post('register' , 'register');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::group(['prefix' => 'v1'], function() {
         Route::apiResource('companies', CompanyController::class);
         Route::apiResource('employees', EmployeeController::class);
-       
+        Route::post('companies/destroyMultiple', [CompanyController::class, 'destroyMultiple']);
+        Route::post('employees/destroyMultiple', [EmployeeController::class, 'destroyMultiple']);
     });
 });

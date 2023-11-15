@@ -35,7 +35,29 @@ class CompanyController extends Controller
 
     public function destroy(Company $company) 
     {
-        $company->delete();
-        return response()->json('Successfully Deleted');
+        try {
+            // Delete associated employees
+            $company->employees()->delete(); 
+    
+            // Delete the company
+            $company->delete(); 
+    
+            return response()->json('Successfully Deleted');
+        } catch (\Exception $e) {
+            // Log the error or handle it appropriately
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+    public function destroyMultiple(Request $request)
+    {
+        $companyIds = $request->input('company_ids', []);
+        if (!is_array($companyIds)) {
+            return response()->json('Invalid company_ids provided', 400);
+        } elseif (empty($companyIds)) {
+            return response()->json('Empty company_ids provided', 400);
+        }
+        Company::deleteMultiple($companyIds);
+        return response()->json(['message' => 'Successfully Deleted']);    
+    }
+
 }

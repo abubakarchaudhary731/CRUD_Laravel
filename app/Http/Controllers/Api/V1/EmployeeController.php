@@ -39,5 +39,16 @@ class EmployeeController extends Controller
         return response()->json('Successfully Deleted');
     }
 
+    public function destroyMultiple(Request $request)
+    {
+        $employeeIds = $request->input('employee_ids', []);
+        if (!is_array($employeeIds)) {
+            return response()->json('Invalid employee_Ids provided', 400);
+        } elseif (empty($employeeIds)) {
+            return response()->json('Empty employee_Ids provided', 400);
+        }
+        Employee::deleteMultiple($employeeIds);
+        return response()->json(['message' => 'Successfully Deleted']);    
+    }
 
 }
