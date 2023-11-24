@@ -21,6 +21,8 @@ const reducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
+
+
 const Store = configureStore({
   reducer: persistedReducer,
 });

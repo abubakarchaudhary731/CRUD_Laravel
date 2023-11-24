@@ -29,8 +29,8 @@ export default function TylexTechAlert({title, children, open, handleClose, onCo
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={() => onConfirm(handleClose())}>Agree</Button>
+          <Button onClick={handleClose}> Cancel </Button>
+          <Button onClick={() => onConfirm(handleClose())}> Confirm </Button>
         </DialogActions>
       </Dialog>
     </>

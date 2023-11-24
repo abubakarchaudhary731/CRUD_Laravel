@@ -127,6 +127,33 @@ export const editEmployee = createAsyncThunk("EditData", async (data, {rejectWit
     }
     });
 
+// Multiple Delete Employee
+export const multDelEmp = createAsyncThunk("multDelEmp", async (data, {rejectWithValue}) => {
+    if (token) {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/employees/destroyMultiple`, {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(data)
+            })
+            if (response.ok) {
+                const result = await response.json();
+                return result;
+            } else {
+                console.log("Network Error");
+            }
+         } catch (error) {
+            return rejectWithValue(error)
+         }
+    } else {
+        console.log("Require Token");
+    }
+});
+
 
 const EmployeeSlice = createSlice({
     name: "Employee",
@@ -199,6 +226,22 @@ const EmployeeSlice = createSlice({
             }
         })
         .addCase(editEmployee.rejected, (state, action) => {
+            state.isLoading = false,
+            state.error = action.payload
+        })
+
+        .addCase(multDelEmp.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(multDelEmp.fulfilled, (state, action) => {
+            state.isLoading = false;
+            if (Array.isArray(action.payload)) {
+                state.Employees = [...state.Employees, action.payload]
+            } else {
+                state.Employees = [...state.Employees]; 
+            }
+        })
+        .addCase(multDelEmp.rejected, (state, action) => {
             state.isLoading = false,
             state.error = action.payload
         })

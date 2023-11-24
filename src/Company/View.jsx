@@ -4,7 +4,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Button } from '@mui/material';
 import TylexTechTable from '../Components/TylexTechTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { viewSingleEmployee, deleteEmployee, employeeList} from '../Redux/Employee';
+import { viewSingleEmployee, deleteEmployee, employeeList, multDelEmp} from '../Redux/Employee';
 import TylexTechAlert from '../Components/TylexTechAlert';
 import TylexTechDialog from '../Components/TylexTechDialog';
 
@@ -60,6 +60,13 @@ const onConfirm = ({id, list}) => {
 dispatch(deleteEmployee({id , list}))
 }
 
+const handleSeletedRows = () => {
+  dispatch(multDelEmp({employee_ids: selectedRow})).then(() => {
+    dispatch(employeeList())
+    setSelectedRow([]); 
+  })
+}
+
 return (
     <>
      <div className='tw-fixed tw-z-10 tw-top-14 tw-left-0 tw-right-0 tw-bg-gray-50'>
@@ -84,6 +91,7 @@ return (
       handleDialogOpen={(id) => showSingleEmp(id)}
       handleAlertOpen={(id) => handleAlertOpen(id)}
       navigate={navigate}
+      handleSeletedRows={handleSeletedRows}
 
     />
 

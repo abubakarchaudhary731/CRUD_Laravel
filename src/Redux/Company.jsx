@@ -127,6 +127,33 @@ export const EditData = createAsyncThunk("EditData", async (data, {rejectWithVal
     }
     });
 
+// Multiple Deleted Rows
+export const multipleDeleteCompany = createAsyncThunk("MultipleDeleteCompany", async (data, {rejectWithValue}) => {
+  if (token) {
+      try {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies/destroyMultiple`, {
+              method: "POST",
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
+              },
+              body: JSON.stringify(data)
+          })
+          if (response.ok) {
+              const result = await response.json();
+              return result;
+          } else {
+              console.log("Network Error");
+          }
+       } catch (error) {
+          return rejectWithValue(error)
+       }
+  } else {
+      console.log("Require Token");
+  }
+  });
+
 
 const CompanyData = createSlice({
     name: "Company",
@@ -200,7 +227,22 @@ const CompanyData = createSlice({
       .addCase(EditData.rejected, (state, action) => {
         state.loading = false;
         state.error = JSON.stringify(action.payload);
-      });
+      })
+
+      .addCase(multipleDeleteCompany.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(multipleDeleteCompany.fulfilled, (state, action) => {
+        state.loading = false;
+        if (Array.isArray(state.value)) {
+          state.value = [...state.value, action.payload];
+        }
+        state.error = JSON.stringify(action.payload);
+      })
+      .addCase(multipleDeleteCompany.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
   },
     
 });

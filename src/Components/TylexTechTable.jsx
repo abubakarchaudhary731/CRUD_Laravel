@@ -6,11 +6,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Checkbox } from '@mui/material';
+import { Checkbox, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { styled } from '@mui/material/styles';
+import DeleteForever from '@mui/icons-material/DeleteForever';
+
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -42,11 +44,26 @@ const TylexTechTable = ({
   handleDialogOpen,
   handleAlertOpen,
   navigate,
+  handleSelectedOpen,
 }) => {
 
   return (
     <>
     <div className='tw-mx-12 tw-mt-20'>
+    <div className='tw-flex tw-justify-between tw-bg-gray-50 tw-px-4 tw-font-bold tw-rounded-lg'> 
+        {
+          selectedRow.length >= 1 ? (
+          <div className='tw-flex tw-gap-4 tw-w-full'> 
+            <h1 className='tw-my-4 tw-text-xl'> {Array.isArray(selectedRow) && selectedRow.length} Selected </h1>
+            <Button onClick={handleSelectedOpen}>
+              <DeleteForever />
+            </Button>
+           </div>)
+          : (
+            <h1 className='tw-my-4 tw-text-xl'> Employee Table </h1>
+          )
+        }
+      </div>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>

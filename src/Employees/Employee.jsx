@@ -4,7 +4,7 @@ import { Add } from 'iconsax-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteEmployee, employeeList, viewSingleEmployee } from '../Redux/Employee';
+import { deleteEmployee, employeeList, multDelEmp, viewSingleEmployee } from '../Redux/Employee';
 import TylexTechDialog  from '../Components/TylexTechDialog';
 import TylexTechAlert from '../Components/TylexTechAlert';
 
@@ -14,6 +14,7 @@ const Employee = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [open, setOpen] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
+  const [selectedOpen, setSelectedOpen] = useState(false);
   const [getId, setGetId] = useState();
   const handleAlertOpen = (id) => {
     setAlertOpen(true);
@@ -53,6 +54,20 @@ const showSingleEmp = (id) => {
 const onConfirm = ({id, list}) => {
   dispatch(deleteEmployee({id , list}))
 }
+// handle selected items 
+
+const handleSelectedOpen = () => {
+  setSelectedOpen(true);
+}
+const handleSelectedClose = () => {
+  setSelectedOpen(false);
+}
+const handleSeletedRows = () => {
+  dispatch(multDelEmp({employee_ids: selectedRow})).then(() => {
+    dispatch(employeeList())
+    setSelectedRow([]); 
+  })
+}
 
   return (
     <>
@@ -75,6 +90,7 @@ const onConfirm = ({id, list}) => {
       handleDialogOpen={(id) => showSingleEmp(id)}
       handleAlertOpen={(id) => handleAlertOpen(id)}
       navigate={navigate}
+      handleSelectedOpen={handleSelectedOpen}
       
     />
 
@@ -90,6 +106,15 @@ const onConfirm = ({id, list}) => {
       onConfirm={() => onConfirm({id:getId, list:Employees})} 
       title={"Confirm Deletion"} >
           This action will delete this Employee! 
+          <b> Are you sure you want to proceed?</b>
+    </TylexTechAlert>
+
+    <TylexTechAlert 
+      open={selectedOpen}
+      handleClose={handleSelectedClose}
+      onConfirm={handleSeletedRows} 
+      title={"Confirm Deletion"} >
+          This action will delete all Selected Employees! 
           <b> Are you sure you want to proceed?</b>
     </TylexTechAlert>
 
