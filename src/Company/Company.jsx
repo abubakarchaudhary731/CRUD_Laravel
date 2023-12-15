@@ -22,7 +22,7 @@ const Company = () => {
 
   const {Employees} = useSelector((state) => state.Employee)
   const {value, loading} = useSelector((state) => state.Company);
-  const allData = value.data;
+  const allData = value?.data;
 
   const handleCheckAll = () => {
     setSelectAll(!selectAll);
