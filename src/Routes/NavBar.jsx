@@ -1,10 +1,13 @@
-import React from 'react';
-import { useNavigate, Outlet } from 'react-router-dom';
-
+import { Button } from '@mui/material';
+import { useNavigate, Outlet, Navigate } from 'react-router-dom';
 
 const NavBar = () => {
-
   const navigate = useNavigate();
+  const isAuthenticated = localStorage.getItem('token') !== null; // Check if the token exists
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
 
   return (
     <>
@@ -33,7 +36,12 @@ const NavBar = () => {
           <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("/")}> Home </li>
           <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("/company")}> Company List</li>
           <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("employee")}> Employee List </li>
-
+          <li className='tw-cursor-pointer tw-text-black tw-my-auto'>
+            <Button variant="contained" color="error"  onClick={() => {
+              localStorage.clear();
+              navigate("/signin");
+            }}> Signout </Button>
+          </li>
         </ul>
       </nav>
       </div>

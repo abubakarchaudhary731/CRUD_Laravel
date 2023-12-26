@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaFacebookF, FaGoogle, FaTwitter } from "react-icons/fa";
 import TextField from '@mui/material/TextField';
 import { loginUser } from "../Redux/Auth/LoginSlice";
@@ -21,6 +21,8 @@ const Login = () => {
 
   const toggleForm = () => {
     setIsSignup(!isSignup);
+    const newRoute = isSignup ? "/signin" : "/signup";
+    navigate(newRoute);
   };
 
   const handleChange = (event) => {
@@ -78,16 +80,17 @@ const Login = () => {
             </a>
           </div>
           <span>or use your email for registration</span>
-          <div className="tw-flex tw-flex-col tw-gap-4">
+          <div className="tw-flex tw-flex-col tw-gap-4 tw-w-full tw-px-20">
           <TextField value={register.name} onChange={handleChange}
-            id="standard-basic" label="Name" variant="standard" name="name" />
+            id="standard-basic" label="Name" variant="standard" name="name" required />
           <TextField value={register.email} onChange={handleChange}
-            id="standard-basic" label="Email" variant="standard" name="email" />
+            id="standard-basic" label="Email" variant="standard" name="email" required />
           <TextField value={register.password} onChange={handleChange}
-            id="standard-basic" label="Password" variant="standard" name="password" />
+            id="standard-basic" label="Password" variant="standard" name="password" required />
           <small className="tw-text-red-600"> {error} </small>
-
-          <button className="tw-p-2">Sign Up</button>
+          <div className="tw-flex tw-justify-center">
+            <button className="tw-p-3 tw-max-w-[150px] hover:tw-bg-red-500 hover:tw-text-white tw-rounded-xl tw-border tw-border-red-500" onClick={handleLogin}>Sign Up </button>
+          </div>
           </div>
         </form>
       </div>
@@ -106,14 +109,16 @@ const Login = () => {
             </a>
           </div>
           <span>or use your account</span>
-          <div className="tw-flex tw-flex-col tw-gap-4">
+          <div className="tw-flex tw-flex-col tw-gap-4 tw-w-full tw-px-20">
           <TextField  value={email} onChange={(e) => setEmail(e.target.value)}
-            id="standard-basic" label="Email" variant="standard" name="email" />
+            id="standard-basic" label="Email" variant="standard" name="email" required />
           <TextField  value={password} onChange={(e) => setPassword(e.target.value)}
-            id="standard-basic" label="Password" variant="standard" name="password" />
+            id="standard-basic" label="Password" variant="standard" name="password" required />
             <small className="tw-text-red-600"> {eror} </small>
           <a href="#">Forgot Your Password</a>
-          <button className="tw-p-2" onClick={handleLogin}>Sign In</button>
+          <div className="tw-flex tw-justify-center">
+            <button className="tw-p-3 tw-max-w-[150px] hover:tw-bg-red-500 hover:tw-text-white tw-rounded-xl tw-border tw-border-red-500" onClick={handleLogin}>Sign In</button>
+          </div>
           </div>
         </form>
       </div>
@@ -124,14 +129,14 @@ const Login = () => {
             <p>
               To keep connected with us please login with your personal info
             </p>
-            <button className="ghost tw-p-2 tw-mt-3" onClick={toggleForm} >
+            <button className="button ghost tw-p-2 tw-mt-3" onClick={toggleForm} >
               Sign In
             </button>
           </div>
           <div className="overlay-panel overlay-right">
             <h1>Hello, Friend!</h1>
             <p>Enter your details and start the journey with us</p>
-            <button className="ghost tw-p-2 tw-mt-3" onClick={toggleForm}>
+            <button className="button ghost tw-p-2 tw-mt-3" onClick={toggleForm}>
               Sign Up
             </button>
           </div>

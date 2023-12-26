@@ -1,14 +1,13 @@
-import React from 'react';
 import {BrowserRouter, Routes, Route, } from 'react-router-dom';
 import Login from '../Authorization/Login';
 import Home from './Home';
 import AddCompany from '../Company/AddCompany';
-import FuncAppBar from './AppBar';
 import Error from './Error';
 import View from '../Company/View';
 import Employee from '../Employees/Employee';
 import Company from '../Company/Company';
 import CreateEmployee from '../Employees/CreateEmployee';
+import NavBar from './NavBar';
 
 
 const AllRoutes = () => {
@@ -16,8 +15,9 @@ const AllRoutes = () => {
     <>
       <BrowserRouter>
       <Routes>
-        <Route path='login' element={<Login />} />
-          <Route path='/' element={<FuncAppBar />}  >
+        <Route path='signin' element={<Login />} />
+        <Route path='signup' element={<Login />} />
+          <Route path='/' element={<NavBar />}  >
             <Route index element={<Home />}/>
             <Route path='/company' element={<Company />} />
             <Route path='/company/create' element={<AddCompany />} />

@@ -28,14 +28,15 @@ export const loginUser = createAsyncThunk('user', async ({ email, password }) =>
   }
 });
 
+// eslint-disable-next-line react-refresh/only-export-components
 const LoginSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    addToken: (state, action) => {
+    addToken: (state) => {
       state.token = localStorage.getItem('token');
     },
-    addUser: (state, action) => {
+    addUser: (state) => {
       state.user = localStorage.getItem('user');
     },
   },
