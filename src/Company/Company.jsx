@@ -1,7 +1,6 @@
 import React, {useEffect , useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { multipleDeleteCompany, indexData, viewSingleCompany } from '../Redux/Company';
-import { deleteData } from '../Redux/Company';
+import { multipleDeleteCompany, indexData, viewSingleCompany, deleteData, stateReset } from '../Redux/Company';
 import TylexTechAlert from '../Components/TylexTechAlert';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@mui/material';
@@ -47,6 +46,7 @@ const Company = () => {
 
   useEffect(() => {
    dispatch(indexData());
+   dispatch(stateReset());
   }, []
   );
 
@@ -92,7 +92,7 @@ const viewSingleData = (id) => {
         <div className='tw-flex tw-justify-between tw-items-center'>
           <h1 className='tw-text-2xl tw-font-bold'> Company List ({Array.isArray(allData) && allData.length}) </h1>
           <Link to={"/company/create"} >
-            <Button style={{color: "black"}}> Add <Add /> </Button>
+            <Button variant='contained'> Add <Add /> </Button>
           </Link>
         </div>
       </div>

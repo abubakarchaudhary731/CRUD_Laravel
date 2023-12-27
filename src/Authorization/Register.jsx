@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { registerUser } from "../Redux/Auth/Register";
 import { useDispatch, useSelector } from "react-redux";
 import './Style.css';
+import Icons from "./Icons";
 
 
 
@@ -42,18 +43,8 @@ const Register = () => {
     <>
     <div className="form-container sign-up-container">
         <form action="" method="POST" onSubmit={handleRegister}>
-          <h1>Create Account</h1>
-          <div className="social-container">
-            <a href="#" className="social">
-              <FaFacebookF />
-            </a>
-            <a href="#" className="social">
-              <FaGoogle />
-            </a>
-            <a href="#" className="social">
-              <FaTwitter />
-            </a>
-          </div>
+          <h1> Create Account </h1>
+            <Icons />
           <span>or use your email for registration</span>
           <div className="tw-flex tw-flex-col tw-gap-4 tw-w-full tw-px-20">
 

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from "react-redux";
-import { getData } from '../Redux/Company';
+import { getData, EditData } from '../Redux/Company';
 import { useNavigate, useParams } from 'react-router-dom';
-import { EditData } from '../Redux/Company';
 
 const AddCompany = () => {
     const [data, setData] = useState({
@@ -19,16 +18,15 @@ const AddCompany = () => {
     }
 
     const {error, value} = useSelector((state) => state.Company);
+    console.log(error);
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();   
-        dispatch(getData(data))
-        // .then(()=> {
-        //     setTimeout(() => {
-        //         navigate("/company")
-        //     }, 300);
-        // })
-          
+        dispatch(getData(data)).then((result)=> {
+            if (!result.payload.errors) {
+                navigate("/company")
+            }
+        })
     }
 
     const {id} = useParams();
@@ -44,10 +42,10 @@ const AddCompany = () => {
       }, []);
       
     const handleEdit = () => {
-        dispatch(EditData({id:ID , list:data})).then(() => {
-            setTimeout(() => {
+        dispatch(EditData({id:ID , list:data})).then((result) => {
+            if (!result.payload.errors) {
                 navigate("/company")
-            }, 300);
+            }
         })
     }
  
@@ -56,13 +54,16 @@ const AddCompany = () => {
         <div className='tw-my-auto'>
             <div>
                 <form action="" method={ID ? 'PUT' : 'POST'} className='tw-bg-zinc-200 tw-rounded-xl tw-p-16 tw-flex-col tw-flex tw-gap-6'>
-                <h1 className='tw-text-2xl'> {ID ? "Edit" : "Create"} Company </h1>
+                <h1 className='tw-text-2xl tw-font-bold'> {ID ? "Edit" : "Create"} Company </h1>
+
                     <TextField value={data.name} onChange={handleChange} required
                     id="standard-basic" label="Name" variant="standard" name="name" />
                     <small className={`tw-text-red-600`}> {error?.name} </small>
+
                     <TextField value={data.email} onChange={handleChange} required
                     id="standard-basic" label="Email" variant="standard" name="email" />
                     <small className={`tw-text-red-600`}> {error?.email} </small>
+
                     <Button onClick={ID ? handleEdit : handleSubmit}>
                         {ID ? "Update" : "ADD"}
                     </Button>

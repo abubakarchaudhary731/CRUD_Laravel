@@ -110,12 +110,9 @@ export const EditData = createAsyncThunk("EditData", async (data, {rejectWithVal
                 },
                 body: JSON.stringify(data.list)
             })
-            if (response.ok) {
-                const result = await response.json();
-                return result;
-            } else {
-                console.log("Network Error");
-            }
+            const result = await response.json();
+            return result;
+
          } catch (error) {
             return rejectWithValue(error)
          }
@@ -155,7 +152,12 @@ export const multipleDeleteCompany = createAsyncThunk("MultipleDeleteCompany", a
 const CompanyData = createSlice({
     name: "Company",
     initialState,
-    reducers: {},
+    reducers: {
+      stateReset: (state) => {
+        state.loading = false;
+        state.error = null;
+      }
+    },
     extraReducers: (builder) => {
     builder
       .addCase(getData.pending, (state) => {
@@ -220,6 +222,7 @@ const CompanyData = createSlice({
         if (Array.isArray(state.value)) {
           state.value = [...state.value, action.payload];
         }
+        state.error = action.payload.errors;
       })
       .addCase(EditData.rejected, (state, action) => {
         state.loading = false;
@@ -244,5 +247,5 @@ const CompanyData = createSlice({
     
 });
 
-
+export const { stateReset } = CompanyData.actions;
 export default CompanyData.reducer

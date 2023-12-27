@@ -51,7 +51,9 @@ const LoginSlice = createSlice({
         state.loading = false;
         state.token = action.payload.token;
         state.user = action.payload.user;
-        localStorage.setItem('token', action.payload.token);
+        if (action.payload.token !==undefined ) {
+          localStorage.setItem('token', action.payload.token);  
+        }
         localStorage.setItem('user', JSON.stringify(action.payload.user));
         state.errorLogin = action.payload.errors;  
         state.message = action.payload.message;     

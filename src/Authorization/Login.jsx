@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { FaFacebookF, FaGoogle, FaTwitter } from "react-icons/fa";
 import TextField from '@mui/material/TextField';
 import { loginUser } from "../Redux/Auth/LoginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import './Style.css';
 import Register from "./Register";
+import Icons from "./Icons";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,6 +35,11 @@ const Login = () => {
       if (result.payload.token) {
         navigate("/")
       }
+      if (result.payload.message) {
+        setEmail("");
+        setPassword("");
+        
+      }
     });
       
   };
@@ -45,19 +50,9 @@ const Login = () => {
         <Register />
       <div className="form-container sign-in-container">
         <form action="#" method="POST">
-          <h1>Sign In</h1>
-          <div className="social-container">
-            <a href="#" className="social">
-              <FaFacebookF />
-            </a>
-            <a href="#" className="social">
-              <FaGoogle />
-            </a>
-            <a href="#" className="social">
-              <FaTwitter />
-            </a>
-          </div>
-          <span>or use your account</span>
+          <h1 className="tw-text-3xl tw-font-bold"> Sign In </h1>
+            <Icons />
+          <p> or use your Account </p>
 
           <div className="tw-flex tw-flex-col tw-gap-4 tw-w-full tw-px-20">
           <TextField  value={email} onChange={(e) => setEmail(e.target.value)}
@@ -76,24 +71,22 @@ const Login = () => {
 
         </form>
       </div>
+
       <div className="overlay-container">
         <div className="overlay">
+
           <div className="overlay-panel overlay-left">
-            <h1>Welcome Back!</h1>
-            <p>
-              To keep connected with us please login with your personal info
-            </p>
-            <button className="button ghost tw-p-2 tw-mt-3" onClick={toggleForm} >
-              Sign In
-            </button>
+            <h1 className="tw-font-bold tw-text-3xl"> Hello, Friend! </h1>
+            <p> Enter your details and start the journey with us </p>
+            <button className="tw-p-2 tw-max-w-[150px] hover:tw-bg-white hover:tw-text-red-500 tw-rounded-xl tw-border tw-border-white tw-font-bold tw-mt-5" onClick={toggleForm}> Sign In </button>
           </div>
+
           <div className="overlay-panel overlay-right">
-            <h1>Hello, Friend!</h1>
-            <p>Enter your details and start the journey with us</p>
-            <button className="button ghost tw-p-2 tw-mt-3" onClick={toggleForm}>
-              Sign Up
-            </button>
+            <h1 className="tw-font-bold tw-text-3xl"> Welcome Back! </h1>
+            <p> To keep connected with us please login with your personal info </p>
+            <button className="tw-p-2 tw-max-w-[150px] hover:tw-bg-white hover:tw-text-red-500 tw-rounded-xl tw-border tw-border-white tw-font-bold tw-mt-5" onClick={toggleForm}> Sign Up </button>
           </div>
+
         </div>
       </div>
     </div>
