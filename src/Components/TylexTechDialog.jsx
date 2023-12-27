@@ -47,16 +47,16 @@ export default function TylexTechDialog({handleDialogClose, open, employeeIndex}
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
-            {employeeIndex?.first_name} {employeeIndex?.last_name}
+            <b>Name: </b> {employeeIndex?.first_name} {employeeIndex?.last_name}
           </Typography>
           <Typography gutterBottom>
-            {employeeIndex?.email}
+            <b>Email: </b> {employeeIndex?.email}
           </Typography>
           <Typography gutterBottom>
-            {employeeIndex?.phone}
+            <b>Phone: </b> {employeeIndex?.phone}
           </Typography>
           <Typography gutterBottom>
-            {employeeIndex?.company}
+            <b>CompanyId: </b> {employeeIndex?.company}
           </Typography>
         </DialogContent>
       </BootstrapDialog>

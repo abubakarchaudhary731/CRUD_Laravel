@@ -18,12 +18,8 @@ export const registerUser = createAsyncThunk("register", async (data, { rejectWi
       mode: "cors",
     });
 
-    if (response.ok) {
-      const result = await response.json();
-      return result;
-    } else {
-      return rejectWithValue(response);
-    }
+    const result = await response.json();
+    return result;
 
   } catch (error) {
     return rejectWithValue(error);
@@ -34,7 +30,7 @@ const RegisterSlice = createSlice({
   name: "register",
   initialState,
   reducers: {}, 
-  extraReducers: (builder) => {
+  extraReducers: (builder) => {    
     builder
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
@@ -44,11 +40,12 @@ const RegisterSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.data.push(action.payload);
+        state.error = action.payload.message;
       })
 
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message; 
+        state.error = action.payload.message; 
       });
   },
 });

@@ -22,11 +22,12 @@ const AddCompany = () => {
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();   
-        dispatch(getData(data)).then(()=> {
-            setTimeout(() => {
-                navigate("/company")
-            }, 300);
-        })
+        dispatch(getData(data))
+        // .then(()=> {
+        //     setTimeout(() => {
+        //         navigate("/company")
+        //     }, 300);
+        // })
           
     }
 
@@ -58,9 +59,10 @@ const AddCompany = () => {
                 <h1 className='tw-text-2xl'> {ID ? "Edit" : "Create"} Company </h1>
                     <TextField value={data.name} onChange={handleChange} required
                     id="standard-basic" label="Name" variant="standard" name="name" />
+                    <small className={`tw-text-red-600`}> {error?.name} </small>
                     <TextField value={data.email} onChange={handleChange} required
                     id="standard-basic" label="Email" variant="standard" name="email" />
-                    {/* <small className={`tw-text-red-600`}> {error} </small> */}
+                    <small className={`tw-text-red-600`}> {error?.email} </small>
                     <Button onClick={ID ? handleEdit : handleSubmit}>
                         {ID ? "Update" : "ADD"}
                     </Button>

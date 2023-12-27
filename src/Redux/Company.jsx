@@ -21,12 +21,9 @@ if (token) {
             },
             body: JSON.stringify(data)
         })
-        if (response.ok) {
-            const result = await response.json();
-            return result;
-        } else {
-            console.log("Network Error");
-        }
+        const result = await response.json();
+        return result;
+
      } catch (error) {
         return rejectWithValue(error)
      }
@@ -169,7 +166,7 @@ const CompanyData = createSlice({
         if (Array.isArray(state.value)) {
           state.value = [...state.value, action.payload];
         }
-        state.error = JSON.stringify(action.payload);
+        state.error =action.payload.errors;
       })
       .addCase(getData.rejected, (state, action) => {
         state.loading = false;

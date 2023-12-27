@@ -1,9 +1,10 @@
 import { Button } from '@mui/material';
-import { useNavigate, Outlet, Navigate } from 'react-router-dom';
+import { useNavigate, Outlet, Navigate, NavLink } from 'react-router-dom';
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem('token') !== null; // Check if the token exists
+  const token = localStorage.getItem('token');
+  const isAuthenticated = token !== null && token !== undefined; // Check if the token exists
   
   if (!isAuthenticated) {
     return <Navigate to="/signin" />;
@@ -33,15 +34,15 @@ const NavBar = () => {
     
 
         <ul className='tw-flex tw-flex-end tw-gap-10'>
-          <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("/")}> Home </li>
-          <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("/company")}> Company List</li>
-          <li className='tw-cursor-pointer tw-text-black tw-my-auto' onClick={()=> navigate("employee")}> Employee List </li>
-          <li className='tw-cursor-pointer tw-text-black tw-my-auto'>
+          <NavLink to="/" className='tw-cursor-pointer tw-text-black tw-my-auto tw-text-lg'> Home </NavLink>
+          <NavLink to="/company" className='tw-cursor-pointer tw-text-black tw-my-auto tw-text-lg' onClick={()=> navigate("/company")}> Company List</NavLink>
+          <NavLink to="/employee" className='tw-cursor-pointer tw-text-black tw-my-auto tw-text-lg' onClick={()=> navigate("employee")}> Employee List </NavLink>
+          <NavLink className='tw-cursor-pointer tw-text-black tw-my-auto tw-text-lg'>
             <Button variant="contained" color="error"  onClick={() => {
               localStorage.clear();
               navigate("/signin");
             }}> Signout </Button>
-          </li>
+          </NavLink>
         </ul>
       </nav>
       </div>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import TylexTechTable from '../Components/TylexTechTable';
 import { Add } from 'iconsax-react';
 import { Link, useNavigate } from 'react-router-dom';

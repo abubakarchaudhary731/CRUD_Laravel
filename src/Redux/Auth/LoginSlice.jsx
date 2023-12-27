@@ -4,27 +4,28 @@ let initialState = {
   user: "",
   token: "",
   loading: false,
+  errorLogin: null,
+  message: null,
 };
 
-export const loginUser = createAsyncThunk('user', async ({ email, password }) => {
+// eslint-disable-next-line no-unused-vars
+export const loginUser = createAsyncThunk('user', async ({ email, password }, {rejectWithValue}) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
       method: 'POST',
       headers: {
+        "accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }), 
       mode: 'cors', 
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      console.log('Login failed'); 
-    }
+    const result = await response.json();
+    return result;
+
   } catch (error) {
-    console.log(error); 
+   return rejectWithValue(error); 
   }
 });
 
@@ -44,6 +45,7 @@ const LoginSlice = createSlice({
     builder
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
+        state.errorLogin = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
@@ -51,10 +53,12 @@ const LoginSlice = createSlice({
         state.user = action.payload.user;
         localStorage.setItem('token', action.payload.token);
         localStorage.setItem('user', JSON.stringify(action.payload.user));
+        state.errorLogin = action.payload.errors;  
+        state.message = action.payload.message;     
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.errorLogin = action.payload.message;
       });
   },
 });
