@@ -29,7 +29,11 @@ export const registerUser = createAsyncThunk("register", async (data, { rejectWi
 const RegisterSlice = createSlice({
   name: "register",
   initialState,
-  reducers: {}, 
+  reducers: {
+    clearError: (state) => {
+      state.error = null;
+    },
+  }, 
   extraReducers: (builder) => {    
     builder
       .addCase(registerUser.pending, (state) => {
@@ -40,7 +44,7 @@ const RegisterSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.data.push(action.payload);
-        state.error = action.payload.message;
+        state.error = action.payload.errors;
       })
 
       .addCase(registerUser.rejected, (state, action) => {
@@ -50,4 +54,5 @@ const RegisterSlice = createSlice({
   },
 });
 
+export const { clearError } = RegisterSlice.actions;
 export default RegisterSlice.reducer;

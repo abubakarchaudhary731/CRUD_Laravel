@@ -52,10 +52,10 @@ const TylexTechTable = ({
     <div className='tw-flex tw-justify-between tw-bg-gray-50 tw-px-4 tw-font-bold tw-rounded-lg'> 
         {
           selectedRow.length >= 1 ? (
-          <div className='tw-flex tw-gap-4 tw-w-full'> 
+          <div className='tw-flex tw-justify-between tw-w-full'> 
             <h1 className='tw-my-4 tw-text-xl'> {Array.isArray(selectedRow) && selectedRow.length} Selected </h1>
             <Button onClick={handleSelectedOpen}>
-              <DeleteForever />
+              Delete <DeleteForever />
             </Button>
            </div>)
           : (
@@ -96,9 +96,9 @@ const TylexTechTable = ({
               <StyledTableCell> {row.phone} </StyledTableCell>
               <StyledTableCell> {row.company} </StyledTableCell>
               <StyledTableCell> 
-                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg' onClick={()=> handleDialogOpen(row.id)}> <VisibilityIcon /></i>
-                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg' onClick={()=> navigate(`/employee/edit/${row.id}`)}> <EditIcon /></i>
-                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg' onClick={()=> handleAlertOpen(row.id)}> <DeleteForeverIcon /></i>
+                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg tw-text-gray-500' onClick={()=> handleDialogOpen(row.id)}> <VisibilityIcon /></i>
+                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg tw-text-green-700' onClick={()=> navigate(`/employee/edit/${row.id}`)}> <EditIcon /></i>
+                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg tw-text-red-500' onClick={()=> handleAlertOpen(row.id)}> <DeleteForeverIcon /></i>
               </StyledTableCell>
             </StyledTableRow>
           ))}

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import TextField from '@mui/material/TextField';
-import { loginUser } from "../Redux/Auth/LoginSlice";
+import { clearErrorLogin, loginUser } from "../Redux/Auth/LoginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import './Style.css';
 import Register from "./Register";
 import Icons from "./Icons";
+import { clearError } from "../Redux/Auth/Register";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ const Login = () => {
     setIsSignup(!isSignup);
     const newRoute = isSignup ? "/signin" : "/signup";
     navigate(newRoute);
+    dispatch(clearErrorLogin());
+    dispatch(clearError());
   };
 
   // Login 
@@ -34,15 +37,17 @@ const Login = () => {
     dispatch(loginUser({ email, password })).then((result)=> {
       if (result.payload.token) {
         navigate("/")
+        dispatch(clearErrorLogin());
       }
       if (result.payload.message) {
-        setEmail("");
         setPassword("");
         
       }
-    });
-      
+    });  
   };
+  useEffect(() => {
+    dispatch(clearErrorLogin());
+  }, [dispatch]);
   
   return (
     <div className="body">
@@ -55,15 +60,25 @@ const Login = () => {
           <p> or use your Account </p>
 
           <div className="tw-flex tw-flex-col tw-gap-4 tw-w-full tw-px-20">
-          <TextField  value={email} onChange={(e) => setEmail(e.target.value)}
-            id="standard-basic" label="Email" variant="standard" name="email" required />
-            <small className="tw-text-red-600"> {errorLogin?.email} </small>
+          <TextField  
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)}
+            label="Email" variant="standard" 
+            name="email" required 
+            error={Boolean(errorLogin?.email)}  
+            helperText={errorLogin?.email && errorLogin?.email[0]}
+          />
 
-          <TextField  value={password} onChange={(e) => setPassword(e.target.value)}
-            id="standard-basic" label="Password" variant="standard" name="password" required />
-            <small className="tw-text-red-600"> {errorLogin?.password} </small>
-            <p className="tw-text-red-600"> {Array.isArray(message) && message} </p>
-          <a >Forgot Your Password</a>
+          <TextField 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)}
+            label="Password" variant="standard"
+            name="password" required 
+            error={Boolean(errorLogin?.password)}  
+            helperText={errorLogin?.password && errorLogin?.password[0]}
+          />  
+            <small className="hover:tw-font-sans tw-cursor-pointer"><i> Forgot Your Password </i></small>
+          <p className="tw-text-red-600"> {Array.isArray(message) && message} </p>
           <div className="tw-flex tw-justify-center">
             <button className="tw-p-3 tw-max-w-[150px] hover:tw-bg-red-500 hover:tw-text-white tw-rounded-xl tw-border tw-border-red-500" onClick={handleLogin}>Sign In</button>
           </div>

@@ -40,6 +40,10 @@ const LoginSlice = createSlice({
     addUser: (state) => {
       state.user = localStorage.getItem('user');
     },
+    clearErrorLogin: (state) => {
+      state.errorLogin = null;
+      state.message = null;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -65,5 +69,5 @@ const LoginSlice = createSlice({
   },
 });
 
-export const { addToken, addUser } = LoginSlice.actions;
+export const { addToken, addUser, clearErrorLogin } = LoginSlice.actions;
 export default LoginSlice.reducer;

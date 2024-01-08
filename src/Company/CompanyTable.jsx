@@ -84,9 +84,9 @@ const CompanyTable = ({
               <StyledTableCell> {row.email} </StyledTableCell>
               <StyledTableCell> {Array.isArray(filterData) && filterData.length} </StyledTableCell>
               <StyledTableCell> 
-                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg' onClick={() => viewSingleData(row.id)}><VisibilityIcon /></i>
-                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg' onClick={() => navigate(`/company/edit/${row.id}`)}><EditIcon /></i>
-                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg' onClick={() => handleClickOpen(row.id)}> <DeleteForeverIcon /></i>
+                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg tw-text-gray-500' onClick={() => viewSingleData(row.id)}><VisibilityIcon /></i>
+                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg tw-text-green-700' onClick={() => navigate(`/company/edit/${row.id}`)}><EditIcon /></i>
+                <i className='tw-cursor-pointer hover:tw-bg-primary-icons tw-p-2 tw-rounded-lg tw-text-red-500' onClick={() => handleClickOpen(row.id)}> <DeleteForeverIcon /></i>
               </StyledTableCell>
             </StyledTableRow>
             )

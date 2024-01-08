@@ -21,12 +21,9 @@ export const getEmpData = createAsyncThunk("AddEmployee", async (data, {rejectWi
                 },
                 body: JSON.stringify(data)
             })
-            if (response.ok) {
-                const result = await response.json();
-                return result;
-            } else {
-                console.log("Network Error");
-            }
+            const result = await response.json();
+            return result;
+
          } catch (error) {
             return rejectWithValue(error)
          }
@@ -113,12 +110,9 @@ export const editEmployee = createAsyncThunk("EditData", async (data, {rejectWit
                 },
                 body: JSON.stringify(data.list)
             })
-            if (response.ok) {
-                const result = await response.json();
-                return result;
-            } else {
-                console.log("Network Error");
-            }
+            const result = await response.json();
+            return result;
+
          } catch (error) {
             return rejectWithValue(error)
          }
@@ -158,7 +152,12 @@ export const multDelEmp = createAsyncThunk("multDelEmp", async (data, {rejectWit
 const EmployeeSlice = createSlice({
     name: "Employee",
     initialState,
-    reducers: {},
+    reducers: {
+        stateReset: (state) => {
+            state.isLoading = false;
+            state.error = null;
+        }
+    },
     extraReducers: (builder) => {
         builder
         .addCase(getEmpData.pending, (state) => {
@@ -171,6 +170,7 @@ const EmployeeSlice = createSlice({
             } else {
                 state.Employees = [];
             }
+            state.error = action.payload.errors;
         })
         .addCase(getEmpData.rejected, (state, action) => {
             state.isLoading = false,
@@ -224,6 +224,7 @@ const EmployeeSlice = createSlice({
             if (Array.isArray(state.value)) {
                 state.value = [...state.value, action.payload];
             }
+            state.error = action.payload.errors;
         })
         .addCase(editEmployee.rejected, (state, action) => {
             state.isLoading = false,
@@ -250,4 +251,5 @@ const EmployeeSlice = createSlice({
     }
 });
 
+export const { stateReset } = EmployeeSlice.actions;
 export default EmployeeSlice

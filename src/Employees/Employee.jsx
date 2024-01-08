@@ -76,7 +76,7 @@ const handleSeletedRows = () => {
         <div className='tw-flex tw-justify-between tw-items-center'>
           <h1 className='tw-text-2xl tw-font-bold'> Employee List ({Array.isArray(Employees) && Employees.length}) </h1>
           <Link to={"/employee/create"} >
-            <Button style={{color: "black"}}> Add <Add /> </Button>
+            <Button variant='contained'> Add <Add /> </Button>
           </Link>
         </div>
       </div>

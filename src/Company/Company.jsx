@@ -102,10 +102,10 @@ const viewSingleData = (id) => {
       <div className='tw-flex tw-justify-between tw-bg-gray-50 tw-px-4 tw-font-bold tw-rounded-lg'> 
         {
           selectedRow.length >= 1 ? (
-          <div className='tw-flex tw-gap-4 tw-w-full'> 
+          <div className='tw-flex tw-justify-between tw-w-full'> 
             <h1 className='tw-my-4 tw-text-xl'> {Array.isArray(selectedRow) && selectedRow.length} Selected </h1>
-            <Button onClick={handleAlertOpen}>
-              <DeleteForever />
+            <Button onClick={handleAlertOpen} size='small'>
+             Delete <DeleteForever />
             </Button>
            </div>)
           : (

@@ -6,13 +6,13 @@ const Icons = () => {
   return (
     <>
     <div className="social-container">
-        <a className="social">
+        <a className="social tw-cursor-pointer tw-text-blue-600">
           <FaFacebookF />
         </a>
-        <a className="social">
+        <a className="social tw-cursor-pointer tw-text-red-500">
           <FaGoogle />
         </a>
-        <a className="social">
+        <a className="social tw-cursor-pointer tw-text-blue-600">
           <FaTwitter />
         </a>
     </div>
