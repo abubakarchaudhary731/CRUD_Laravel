@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteEmployee, employeeList, multDelEmp, viewSingleEmployee } from '../Redux/Employee';
 import TylexTechDialog  from '../Components/TylexTechDialog';
 import TylexTechAlert from '../Components/TylexTechAlert';
+import Pagination from '../Components/Pagination';
 
 
 const Employee = () => {
@@ -16,6 +17,14 @@ const Employee = () => {
   const [alertOpen, setAlertOpen] = useState(false);
   const [selectedOpen, setSelectedOpen] = useState(false);
   const [getId, setGetId] = useState();
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(10);
+
+  const indexOfLastRecord = (currentPage + 1) * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  console.log(currentPage, indexOfLastRecord, indexOfFirstRecord);
+ 
   const handleAlertOpen = (id) => {
     setAlertOpen(true);
     setGetId(id)
@@ -29,6 +38,10 @@ const Employee = () => {
   };
 
   const {Employees, employeeData} = useSelector((state) => state.Employee);
+
+  const totalData = Array.isArray(Employees) && Employees.length;
+  const currentRecords = Array.isArray(Employees) && Employees.slice(indexOfFirstRecord, indexOfLastRecord);
+
   const handleCheckAll = () => {
     setSelectAll(!selectAll);
     setSelectedRow(selectAll ? [] : Employees.map((data) => data.id));
@@ -54,7 +67,7 @@ const showSingleEmp = (id) => {
 const onConfirm = ({id, list}) => {
   dispatch(deleteEmployee({id , list}))
 }
-// handle selected items 
+// handle selected items 1
 
 const handleSelectedOpen = () => {
   setSelectedOpen(true);
@@ -86,12 +99,19 @@ const handleSeletedRows = () => {
       handleCheckAll={handleCheckAll}
       handleSingleRow={handleSingleRow}
       selectedRow={selectedRow}
-      employeeList={Employees}
+      employeeList={currentRecords}
       handleDialogOpen={(id) => showSingleEmp(id)}
       handleAlertOpen={(id) => handleAlertOpen(id)}
       navigate={navigate}
-      handleSelectedOpen={handleSelectedOpen}
-      
+      handleSelectedOpen={handleSelectedOpen}      
+    />
+
+    <Pagination 
+      totalRows={totalData}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      recordsPerPage={recordsPerPage}
+      setRecordsPerPage={setRecordsPerPage}
     />
 
     <TylexTechDialog 
