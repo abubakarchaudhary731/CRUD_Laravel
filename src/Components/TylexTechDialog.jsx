@@ -16,8 +16,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function TylexTechDialog({handleDialogClose, open, employeeIndex}) {
-  
+export default function TylexTechDialog({ handleDialogClose, open, employeeIndex }) {
+
   return (
     <>
       <BootstrapDialog
@@ -27,7 +27,7 @@ export default function TylexTechDialog({handleDialogClose, open, employeeIndex}
         sx={{
           '& .MuiPaper-root': {
             minWidth: "400px"
-        },
+          },
         }}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">

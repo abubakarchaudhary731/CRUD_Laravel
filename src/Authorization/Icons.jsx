@@ -5,7 +5,7 @@ import './Style.css';
 const Icons = () => {
   return (
     <>
-    <div className="social-container">
+      <div className="social-container">
         <a className="social tw-cursor-pointer tw-text-blue-600">
           <FaFacebookF />
         </a>
@@ -15,7 +15,7 @@ const Icons = () => {
         <a className="social tw-cursor-pointer tw-text-blue-600">
           <FaTwitter />
         </a>
-    </div>
+      </div>
     </>
   )
 }

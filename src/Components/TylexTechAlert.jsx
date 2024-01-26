@@ -1,4 +1,4 @@
-import  React from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -11,8 +11,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function TylexTechAlert({title, children, open, handleClose, onConfirm}) {
- 
+export default function TylexTechAlert({ title, children, open, handleClose, onConfirm }) {
+
   return (
     <>
       <Dialog

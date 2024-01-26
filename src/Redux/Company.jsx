@@ -1,164 +1,164 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-    value: [],
-    companyDetail: {},
-    error:null,
-    loading:false,
+  value: [],
+  companyDetail: {},
+  error: null,
+  loading: false,
 }
 const token = localStorage.getItem("token");
 
 // Create 
-export const getData = createAsyncThunk("Company", async (data, {rejectWithValue}) => {
-if (token) {
+export const getData = createAsyncThunk("Company", async (data, { rejectWithValue }) => {
+  if (token) {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies`, {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify(data)
-        })
-        const result = await response.json();
-        return result;
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies`, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+      })
+      const result = await response.json();
+      return result;
 
-     } catch (error) {
-        return rejectWithValue(error)
-     }
-} else {
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  } else {
     console.log("Require Token");
-}
+  }
 });
 
 // Index Functionality
-export const indexData = createAsyncThunk("CompanyList", async(ceck, {rejectWithValue}) => {
-    if (token) {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`, 
-                }
-            });
+export const indexData = createAsyncThunk("CompanyList", async (ceck, { rejectWithValue }) => {
+  if (token) {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies`, {
+      method: "GET",
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
 
-            try {
-                const result = await response.json();
-                return result;
-            } catch (error) {
-                return rejectWithValue(error)
-        }
-    }  else {
-            console.log("Require Token");
+    try {
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      return rejectWithValue(error)
     }
+  } else {
+    console.log("Require Token");
+  }
 });
 
 // View Single Data
-export const viewSingleCompany = createAsyncThunk("SingleCompanyList", async(id, {rejectWithValue}) => {
-    if (token) {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies/${id}`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`, 
-                }
-            });
+export const viewSingleCompany = createAsyncThunk("SingleCompanyList", async (id, { rejectWithValue }) => {
+  if (token) {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies/${id}`, {
+      method: "GET",
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
 
-            try {
-                const result = await response.json();
-                return result;
-            } catch (error) {
-                return rejectWithValue(error)
-        }
-    }  else {
-            console.log("Require Token");
+    try {
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      return rejectWithValue(error)
     }
+  } else {
+    console.log("Require Token");
+  }
 });
 
 
 
 // Delete Functionality
-export const deleteData = createAsyncThunk("DeleteData", async(data, {rejectWithValue}) => {
-    
-    if (token) {
-        const response =  await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies/${data.id}`, {
-                method: "DELETE",
-                headers: {
-                    'Authorization': `Bearer ${token}`, 
-                }
-            });
-            try {
-                const result = await response.json();
-                return result;
-            } catch (error) {
-                return rejectWithValue(error, "Error")
-        }
-    }  else {
-            console.log("Require Token");
+export const deleteData = createAsyncThunk("DeleteData", async (data, { rejectWithValue }) => {
+
+  if (token) {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies/${data.id}`, {
+      method: "DELETE",
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+    try {
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      return rejectWithValue(error, "Error")
     }
+  } else {
+    console.log("Require Token");
+  }
 });
 
 // Edit Functionality
-export const EditData = createAsyncThunk("EditData", async (data, {rejectWithValue}) => {
-    if (token) {
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies/${data.id}`, {
-                method: "PUT",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data.list)
-            })
-            const result = await response.json();
-            return result;
+export const EditData = createAsyncThunk("EditData", async (data, { rejectWithValue }) => {
+  if (token) {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies/${data.id}`, {
+        method: "PUT",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data.list)
+      })
+      const result = await response.json();
+      return result;
 
-         } catch (error) {
-            return rejectWithValue(error)
-         }
-    } else {
-        console.log("Require Token");
+    } catch (error) {
+      return rejectWithValue(error)
     }
-    });
+  } else {
+    console.log("Require Token");
+  }
+});
 
 // Multiple Deleted Rows
-export const multipleDeleteCompany = createAsyncThunk("MultipleDeleteCompany", async (data, {rejectWithValue}) => {
+export const multipleDeleteCompany = createAsyncThunk("MultipleDeleteCompany", async (data, { rejectWithValue }) => {
   if (token) {
-      try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies/destroyMultiple`, {
-              method: "POST",
-              headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`,
-              },
-              body: JSON.stringify(data)
-          })
-          if (response.ok) {
-              const result = await response.json();
-              return result;
-          } else {
-              console.log("Network Error");
-          }
-       } catch (error) {
-          return rejectWithValue(error)
-       }
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/companies/destroyMultiple`, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+      })
+      if (response.ok) {
+        const result = await response.json();
+        return result;
+      } else {
+        console.log("Network Error");
+      }
+    } catch (error) {
+      return rejectWithValue(error)
+    }
   } else {
-      console.log("Require Token");
+    console.log("Require Token");
   }
-  });
+});
 
 
 const CompanyData = createSlice({
-    name: "Company",
-    initialState,
-    reducers: {
-      stateReset: (state) => {
-        state.loading = false;
-        state.error = null;
-      }
-    },
-    extraReducers: (builder) => {
+  name: "Company",
+  initialState,
+  reducers: {
+    stateReset: (state) => {
+      state.loading = false;
+      state.error = null;
+    }
+  },
+  extraReducers: (builder) => {
     builder
       .addCase(getData.pending, (state) => {
         state.loading = true;
@@ -168,7 +168,7 @@ const CompanyData = createSlice({
         if (Array.isArray(state.value)) {
           state.value = [...state.value, action.payload];
         }
-        state.error =action.payload.errors;
+        state.error = action.payload.errors;
       })
       .addCase(getData.rejected, (state, action) => {
         state.loading = false;
@@ -244,7 +244,7 @@ const CompanyData = createSlice({
         state.error = action.payload;
       })
   },
-    
+
 });
 
 export const { stateReset } = CompanyData.actions;
