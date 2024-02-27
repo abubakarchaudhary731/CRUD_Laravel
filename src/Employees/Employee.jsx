@@ -23,7 +23,6 @@ const Employee = () => {
 
   const indexOfLastRecord = (currentPage + 1) * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  console.log(currentPage, indexOfLastRecord, indexOfFirstRecord);
 
   const handleAlertOpen = (id) => {
     setAlertOpen(true);

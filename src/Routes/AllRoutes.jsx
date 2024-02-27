@@ -8,6 +8,7 @@ import Employee from '../Employees/Employee';
 import Company from '../Company/Company';
 import CreateEmployee from '../Employees/CreateEmployee';
 import NavBar from './NavBar';
+import Protected from './ProtectedRoutes';
 
 
 const AllRoutes = () => {
@@ -18,15 +19,15 @@ const AllRoutes = () => {
           <Route path='signin' element={<Login />} />
           <Route path='signup' element={<Login />} />
 
-          <Route path='/' element={<NavBar />}  >
-            <Route index element={<Home />} />
-            <Route path='/company' element={<Company />} />
-            <Route path='/company/create' element={<AddCompany />} />
-            <Route path='/company/edit/:id' element={<AddCompany />} />
-            <Route path='/company/details/:id' element={<View />} />
-            <Route path='/employee' element={<Employee />} />
-            <Route path='/employee/create' element={<CreateEmployee />} />
-            <Route path='/employee/edit/:id' element={<CreateEmployee />} />
+          <Route path='/' element={<Protected Component={NavBar} />}  >
+            <Route index element={<Protected Component={Home} />} />
+            <Route path='/company' element={<Protected Component={Company} />} />
+            <Route path='/company/create' element={<Protected Component={AddCompany} />} />
+            <Route path='/company/edit/:id' element={<Protected Component={AddCompany} />} />
+            <Route path='/company/details/:id' element={<Protected Component={View} />} />
+            <Route path='/employee' element={<Protected Component={Employee} />} />
+            <Route path='/employee/create' element={<Protected Component={CreateEmployee} />} />
+            <Route path='/employee/edit/:id' element={<Protected Component={CreateEmployee} />} />
           </Route>
           
           <Route path='*' element={<Error />} />

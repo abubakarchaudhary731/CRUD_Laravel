@@ -3,15 +3,17 @@ import TextField from '@mui/material/TextField';
 import { clearErrorLogin, loginUser } from "../Redux/Auth/LoginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import './Style.css';
 import Register from "./Register";
 import Icons from "./Icons";
 import { clearError } from "../Redux/Auth/Register";
+import './Style.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const isLogin = localStorage.getItem('token');
   const initialIsSignup = localStorage.getItem('isSignup') === 'true';
   const [isSignup, setIsSignup] = useState(initialIsSignup);
+  const [checkIsSignIn, setCheckIsSignIn] = useState(isLogin);
 
   // Update localStorage when the state changes
   useEffect(() => {
@@ -48,6 +50,12 @@ const Login = () => {
   useEffect(() => {
     dispatch(clearErrorLogin());
   }, [dispatch]);
+
+  useEffect(()=>{
+    if(checkIsSignIn){
+        navigate('/');
+    }
+  })
 
   return (
     <div className="body">
